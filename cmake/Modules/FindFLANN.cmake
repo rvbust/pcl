@@ -50,6 +50,18 @@ endif(NOT FLANN_LIBRARY_DEBUG)
 set(FLANN_INCLUDE_DIRS ${FLANN_INCLUDE_DIR})
 set(FLANN_LIBRARIES optimized ${FLANN_LIBRARY} debug ${FLANN_LIBRARY_DEBUG})
 
+
+###############################################################################################BEGIN
+# This part of codes are hacks added to make the lib work on RVBUST devs
+set(FLANN_INCLUDE_DIR "$ENV{HOME}/Rvbust/Install/FLANN/include")
+file(GLOB FLANN_LIBRARIES ABSOLUTE "$ENV{HOME}/Rvbust/Install/FLANN/lib/*.so")
+set(FLANN_DEFINITIONS "" CACHE STRING "compiler options for FLANN")
+set(FLANN_LIBRARY ${FLANN_LIBRARIES})
+set(FLANN_INCLUDE_DIRS ${FLANN_INCLUDE_DIR})
+set(FLANN_FOUND TRUE)
+###############################################################################################END
+
+
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(FLANN DEFAULT_MSG FLANN_LIBRARY FLANN_INCLUDE_DIR)
 

@@ -40,6 +40,22 @@ endif(EIGEN_INCLUDE_DIR)
 set(EIGEN_INCLUDE_DIRS ${EIGEN_INCLUDE_DIR})
 set(CMAKE_FIND_FRAMEWORK)
 
+
+###############################################################################################BEGIN
+# This part of codes are hacks added to make the lib work on RVBUST devs.
+set(Eigen3_DIR "$ENV{HOME}/Rvbust/Install/Eigen/share/eigen3/cmake" CACHE FILEPATH "Set to find Eigen")
+find_package(Eigen3 REQUIRED NO_DEFAULT_PATH)
+
+message(STATUS "Eigen3: ${EIGEN3_INCLUDE_DIR}")
+
+set(EIGEN_INCLUDE_DIR ${EIGEN3_INCLUDE_DIR})
+set(EIGEN_INCLUDE_DIRS ${EIGEN3_INCLUDE_DIR})
+set(EIGEN_DEFINITIONS "-march=native -O3" CACHE STRING "Eigen compiler options")
+set(EIGEN_VERSION ${EIGEN3_VERSION_STRING})
+set(EIGEN_FOUND TRUE)
+###############################################################################################END
+
+
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Eigen DEFAULT_MSG EIGEN_INCLUDE_DIR)
 
@@ -48,3 +64,4 @@ mark_as_advanced(EIGEN_INCLUDE_DIR)
 if(EIGEN_FOUND)
   message(STATUS "Eigen found (include: ${EIGEN_INCLUDE_DIRS}, version: ${EIGEN_VERSION})")
 endif(EIGEN_FOUND)
+
